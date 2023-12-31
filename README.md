@@ -1,5 +1,11 @@
 # Handy
-## Why ?
+## Installation 
+
+```shell
+pip install handyobj
+```
+
+## Why you might consider using this package ?
 In javascript when you work with arrays, you can do some chaining operation in a functional programming style like : 
 ```javascript
 jsList = [1, 2, 3, 4]
@@ -9,22 +15,23 @@ jsList = [1, 2, 3, 4]
 console.log(jsList.filter(el => el % 2 == 0).map(el => el + 1))
 [ 3, 5 ]
 ```
-Python offers functools with `map` and `filter` but they are not as handy 
+Python offers `functools` module with `map` and `filter` but they are not as handy 
 as in javascript when we want to chain them in FP style.
 
 This is why i'm proposing this package that offers 2 objects, `SmartList`
-that act as a simple wrapper on standard list and offers methods like (map,sort, filter_by_redicates, filter_by_val_attributes etc...) and `ObjectDict` that 
+that act as a simple wrapper on standard list and offers methods like
+(map,sort, filter_by_redicates, filter_by_val_attributes etc...) and `ObjectDict` that 
 act as a wrapper on a normal dict, and allow access to it's
 values directly as if they were attributes of the object (works also with nested dict).
 
 So `SmartList` used in combination with `ObjectDict` offers you the same
-experience as you would have in javascript, in some scenarios i found this
-pattern really handy to extract the data i want from 3rd party apis when they
-were not granular enough
-.
+experience as you would have in javascript. In some scenarios i found this
+pattern really handy to extract the data i want from 3rd party 
+apis when they were not granular enough.
+
 ## Usage
 ```python
-# Condider we have the following list of dict 
+# Condider we have the following data list of dict
 ldict = [{'name': 'Kenneth Thomas',
   'job': 'Broadcast presenter',
   'company': 'Williams-Miller'},
@@ -55,10 +62,17 @@ ldict = [{'name': 'Kenneth Thomas',
  {'name': 'Diana Butler',
   'job': 'Scientist, research (maths)',
   'company': 'Olsen, Maddox and Smith'}]
+```
 
-# Consider i want extract just people that work as managers, here is how i do 
-from handy import SmartList, ObjectDict
-managers = SmartList(ldict).map(lambda el : ObjectDict(el)).filter_by_predicates(lambda el : "manager" in  el.job.lower())
+```python
+# Now consider i want extract just people that work as managers, here is how i do 
+
+from handyobj import SmartList, ObjectDict
+
+managers = SmartList(ldict).\
+    map(lambda el : ObjectDict(el)).\
+    filter_by_predicates(lambda el : "manager" in  el.job.lower())
+
 
 >>> [{'name': 'Edward Hamilton',
   'job': 'Quarry manager',
@@ -69,7 +83,10 @@ managers = SmartList(ldict).map(lambda el : ObjectDict(el)).filter_by_predicates
  {'name': 'Jessica Ellis',
   'job': 'Tourist information centre manager',
   'company': 'Williams-Reeves'}]
-# There are more things you can do with the methods of smart list, like aggregation by predicates, or check attribute equality or pattern matching
+
+# There are more things you can do with the methods of smart list, like aggregation by predicates, or check attribute equality or pattern matching : 
+
+
 # len -> gives you lenght of your list 
 # map -> map your list to a new list
 # first -> give you first element of list (index error if doesnt exist)

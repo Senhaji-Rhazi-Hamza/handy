@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "handy"
+name = "handyobj"
 version = "0.1.0"
 description = "This repo aims to provide some utilities to manipulate list in python and list of dict"
 authors = ["SENHAJI RHAZI Hamza <hamza.senhajirhazi@gmail.com>"]
