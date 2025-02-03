@@ -1,5 +1,5 @@
 import pytest
-from smartlist import SmartList
+from handyobj import SmartList
 
 
 @pytest.fixture

@@ -1,6 +1,3 @@
-from handy import SmartList
-
-
 def test_first(simple_smart_list):
     assert simple_smart_list.first() == 1
 
@@ -24,3 +21,10 @@ def test_filter_odd(simple_smart_list):
         8,
         10,
     ]
+
+
+def test_reduce(simple_smart_list):
+    assert (
+        simple_smart_list.reduce(lambda a, b: a + b)
+        == ((simple_smart_list[-1] +  simple_smart_list[0]) * len(simple_smart_list)) / 2
+    )

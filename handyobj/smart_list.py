@@ -1,6 +1,7 @@
 import re
 from types import FunctionType
 from typing import List, Tuple
+from functools import reduce
 
 
 class SmartList(list):
@@ -63,6 +64,10 @@ class SmartList(list):
         return SmartList(
             [el for el in self if all([predicate(el) for predicate in predicates])]
         )
+
+    def reduce(self, reducer):
+        return reduce(reducer, self)
+    
 
     def __getitem__(self, key):
         if isinstance(key, slice):
