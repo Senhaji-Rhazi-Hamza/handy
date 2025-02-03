@@ -3,6 +3,8 @@ from types import FunctionType
 from typing import List, Tuple
 from functools import reduce
 
+from unsync import unsync
+
 
 class SmartList(list):
     def filter_by_attribute_values(self, **kwargs):
@@ -67,7 +69,6 @@ class SmartList(list):
 
     def reduce(self, reducer):
         return reduce(reducer, self)
-    
 
     def __getitem__(self, key):
         if isinstance(key, slice):
@@ -80,6 +81,10 @@ class SmartList(list):
 
     def map(self, func_map):
         return SmartList([func_map(el) for el in self])
+
+    def threaded_map(self, func_map):
+        threaded_mapped_list = [unsync(func_map)(el) for el in self]
+        return SmartList([el.result() for el in threaded_mapped_list])
 
     def first(self):
         if len(self) < 1:
